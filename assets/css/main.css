@@ -776,6 +776,34 @@ section,
   background: var(--background-color);
   border: 2px solid var(--accent-color);
 }
+a.resume-button{
+  color: var(--heading-color);
+}
+.button {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  background-color: var(--accent-color);
+  border: 2px solid transparent;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.button:hover {
+  background-color: #0056b3;
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.button:active {
+  background-color: #004080;
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.2);
+  transform: translateY(2px);
+}
 
 /*--------------------------------------------------------------
 # Portfolio Section
