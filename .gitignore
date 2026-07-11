@@ -111,6 +111,7 @@ Thumbs.db
 # --------------------------------------------------------
 
 # track these files, if they exist
+!.github
 !.editorconfig
 !.env.example
 !.git-blame-ignore-revs

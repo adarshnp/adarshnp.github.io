@@ -1,6 +1,7 @@
 {
   "name": "adarshnp.github.io",
   "version": "1.0.0",
+  "type": "module",
   "main": "index.js",
   "dependencies": {
     "acorn": "^8.14.0",
@@ -10,6 +11,7 @@
     "ansi-styles": "^4.3.0",
     "any-promise": "^1.3.0",
     "anymatch": "^3.1.3",
+    "aos": "^2.3.4",
     "arg": "^5.0.2",
     "argparse": "^2.0.1",
     "array-buffer-byte-length": "^1.0.2",
@@ -22,6 +24,8 @@
     "available-typed-arrays": "^1.0.7",
     "balanced-match": "^1.0.2",
     "binary-extensions": "^2.3.0",
+    "bootstrap": "^5.3.8",
+    "bootstrap-icons": "^1.13.1",
     "brace-expansion": "^1.1.11",
     "braces": "^3.0.3",
     "browserslist": "^4.24.4",
@@ -96,6 +100,7 @@
     "get-intrinsic": "^1.2.7",
     "get-proto": "^1.0.1",
     "get-symbol-description": "^1.1.0",
+    "glightbox": "^3.3.1",
     "glob": "^10.4.5",
     "glob-parent": "^6.0.2",
     "globals": "^15.14.0",
@@ -109,6 +114,7 @@
     "has-tostringtag": "^1.0.2",
     "hasown": "^2.0.2",
     "ignore": "^5.3.2",
+    "imagesloaded": "^5.0.0",
     "import-fresh": "^3.3.0",
     "imurmurhash": "^0.1.4",
     "internal-slot": "^1.1.0",
@@ -140,6 +146,7 @@
     "is-weakset": "^2.0.4",
     "isarray": "^2.0.5",
     "isexe": "^2.0.0",
+    "isotope-layout": "^3.0.6",
     "iterator.prototype": "^1.1.5",
     "jackspeak": "^3.4.3",
     "jiti": "^1.21.7",
@@ -208,6 +215,7 @@
     "react-dom": "^18.3.1",
     "react-is": "^16.13.1",
     "react-refresh": "^0.14.2",
+    "react-router-dom": "^7.18.1",
     "read-cache": "^1.0.0",
     "readdirp": "^3.6.0",
     "reflect.getprototypeof": "^1.0.10",
@@ -246,6 +254,7 @@
     "sucrase": "^3.35.0",
     "supports-color": "^7.2.0",
     "supports-preserve-symlinks-flag": "^1.0.0",
+    "swiper": "^14.0.5",
     "tailwindcss": "^3.4.17",
     "thenify": "^3.3.1",
     "thenify-all": "^1.6.0",
@@ -256,6 +265,7 @@
     "typed-array-byte-length": "^1.0.3",
     "typed-array-byte-offset": "^1.0.4",
     "typed-array-length": "^1.0.7",
+    "typed.js": "^3.0.0",
     "unbox-primitive": "^1.1.0",
     "update-browserslist-db": "^1.1.2",
     "uri-js": "^4.4.1",
@@ -273,6 +283,7 @@
     "yocto-queue": "^0.1.0"
   },
   "devDependencies": {
+    "@vitejs/plugin-react": "^4.7.0",
     "vite": "^6.0.7"
   },
   "scripts": {
