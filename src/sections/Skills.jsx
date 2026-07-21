@@ -10,6 +10,10 @@ const SKILL_GROUPS = [
     skills: ['C#', 'C++', 'TypeScript', 'JavaScript', 'HTML', 'CSS'],
   },
   {
+    title: 'Frameworks',
+    skills: ['React'],
+  },
+  {
     title: 'Unity Specialization',
     skills: ['Unity UI', 'ShaderGraphs', 'Editor Programming', 'Procedural Animation', 'IMGUI', 'Mesh Manipulation'],
   },
