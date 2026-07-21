@@ -64,6 +64,7 @@ export default function ProjectDetailPage() {
             <div className="col-lg-4">
               <div className="portfolio-info" data-aos="fade-up" data-aos-delay="200">
                 <h3>{project.title}</h3>
+                {project.description && <p>{project.description}</p>}
                 <ul>
                   {project.category && (
                     <li><strong>Category</strong>: {project.category}</li>
@@ -89,6 +90,16 @@ export default function ProjectDetailPage() {
                     </li>
                   )}
                 </ul>
+                {project.highlights && (
+                  <>
+                    <h4>Highlights</h4>
+                    <ul>
+                      {project.highlights.map((h, i) => (
+                        <li key={i}>{h}</li>
+                      ))}
+                    </ul>
+                  </>
+                )}
               </div>
             </div>
           </div>

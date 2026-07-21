@@ -8,6 +8,7 @@ import { projects } from '../data/projects'
 const FILTERS = [
   { value: '*', label: 'All' },
   { value: 'filter-app', label: 'Unity' },
+  { value: 'filter-react', label: 'React' },
 ]
 
 export default function Projects() {
@@ -22,7 +23,7 @@ export default function Projects() {
     imagesLoaded(container, () => {
       isoRef.current = new Isotope(container, {
         itemSelector: '.isotope-item',
-        layoutMode: 'masonry',
+        layoutMode: 'fitRows',
         filter: '*',
         sortBy: 'original-order',
       })
@@ -76,7 +77,7 @@ export default function Projects() {
                   <Link to={`/projects/${project.slug}`} className="details-link" title="More Details">
                     <img src={project.coverImage} className="img-fluid" alt={project.title} />
                     <div className="portfolio-info">
-                      <h4>Unity</h4>
+                      <h4>{FILTERS.find((f) => f.value === project.filter)?.label}</h4>
                       <p>{project.title}</p>
                     </div>
                   </Link>

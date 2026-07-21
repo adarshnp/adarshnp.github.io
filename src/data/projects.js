@@ -49,4 +49,21 @@ export const projects = [
     ],
     link: { label: 'Link', url: 'https://connectflow.netlify.app' },
   },
+  {
+    slug: 'matzle',
+    title: 'Matzle',
+    category: '2D Puzzle',
+    platform: 'Web — desktop & mobile browsers',
+    engine: 'React (Vite)',
+    developer: 'Adarsh N P',
+    filter: 'filter-react',
+    coverImage: '/Projects/Matzle/img/pic 1.jpg',
+    images: [
+      '/Projects/Matzle/img/pic 1.jpg',
+      '/Projects/Matzle/img/pic 2.jpg',
+    ],
+    description:
+      "A Wordle-style puzzle for your math brain. Instead of guessing a five-letter word, you guess a hidden arithmetic equation (like 7+2=9) character by character. Solve it within your attempts to advance.",
+    link: { label: 'Link', url: 'https://matzle.vercel.app' },
+  },
 ]

@@ -674,6 +674,9 @@ a.resume-button {
 
 .portfolio .portfolio-content img {
   transition: 0.3s;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
 }
 
 .portfolio .portfolio-content .portfolio-info {
