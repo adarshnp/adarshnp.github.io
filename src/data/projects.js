@@ -33,7 +33,8 @@ export const projects = [
       '/Projects/PairPicker/img/pic 3.jpg',
       '/Projects/PairPicker/img/pic 4.jpg',
     ],
-    link: { label: 'Link', url: 'https://pairpicker.netlify.app' },
+    link: { label: 'Play Link', url: 'https://pairpicker.netlify.app' },
+    github: 'https://github.com/adarshnp/PairPicker',
   },
   {
     slug: 'connect-flow',
@@ -47,7 +48,7 @@ export const projects = [
     images: [
       '/Projects/ConnectFlow/img/pic 1.jpg',
     ],
-    link: { label: 'Link', url: 'https://connectflow.netlify.app' },
+    link: { label: 'Play Link', url: 'https://connectflow.netlify.app' },
   },
   {
     slug: 'matzle',

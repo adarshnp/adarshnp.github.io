@@ -89,6 +89,14 @@ export default function ProjectDetailPage() {
                       </a>
                     </li>
                   )}
+                  {project.github && (
+                    <li>
+                      <strong>GitHub Link</strong>:{' '}
+                      <a href={project.github} target="_blank" rel="noreferrer">
+                        Click here
+                      </a>
+                    </li>
+                  )}
                 </ul>
                 {project.highlights && (
                   <>
