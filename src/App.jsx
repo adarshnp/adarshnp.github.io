@@ -13,6 +13,7 @@ export default function App() {
   return (
     <HashRouter>
       <Preloader />
+      <div className="fx-scanlines" aria-hidden="true" />
       <Header activeSection={activeSection} />
       <main className="main">
         <Routes>

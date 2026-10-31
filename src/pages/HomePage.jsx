@@ -1,17 +1,20 @@
 import { useEffect, useRef } from 'react'
-import { useAOS } from '../hooks/useAOS'
+import { useLocation } from 'react-router-dom'
+import { useReveal } from '../hooks/useReveal'
 import { useScrollSpy } from '../hooks/useScrollSpy'
 import Hero from '../sections/Hero'
 import About from '../sections/About'
 import Skills from '../sections/Skills'
 import Resume from '../sections/Resume'
 import Projects from '../sections/Projects'
+import Gaming from '../sections/Gaming'
 import Contact from '../sections/Contact'
 
-const SECTION_IDS = ['home', 'about', 'skills', 'resume', 'projects', 'contact']
+const SECTION_IDS = ['home', 'about', 'skills', 'resume', 'projects', 'gaming', 'contact']
 
 export default function HomePage({ onSectionChange }) {
-  useAOS()
+  useReveal()
+  const location = useLocation()
   const activeSection = useScrollSpy(SECTION_IDS)
   const prevSection = useRef(null)
 
@@ -22,6 +25,16 @@ export default function HomePage({ onSectionChange }) {
     }
   }, [activeSection, onSectionChange])
 
+  // Arriving from another route with a target section.
+  useEffect(() => {
+    const target = location.state?.scrollTo
+    if (target) {
+      requestAnimationFrame(() => document.getElementById(target)?.scrollIntoView())
+    } else {
+      window.scrollTo(0, 0)
+    }
+  }, [location])
+
   return (
     <>
       <Hero />
@@ -29,6 +42,7 @@ export default function HomePage({ onSectionChange }) {
       <Skills />
       <Resume />
       <Projects />
+      <Gaming />
       <Contact />
     </>
   )

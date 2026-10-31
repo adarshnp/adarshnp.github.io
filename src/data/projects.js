@@ -1,12 +1,27 @@
+export const FILTERS = [
+  { value: '*', label: 'All' },
+  { value: 'filter-app', label: 'Unity' },
+  { value: 'filter-react', label: 'React' },
+]
+
 export const projects = [
   {
     slug: 'encis-solution',
     title: "Enci's Solution",
-    category: 'Platformer Game',
-    platform: 'Steam, Windows',
-    status: 'Demo Released on 2024',
-    developer: 'Dark Emerald Studios',
+    featured: true,
+    flag: 'GDWC 2024 Finalist',
+    category: '3D Platformer',
+    platform: 'PC, Xbox',
+    status: 'Demo previously available on Steam',
+    developer: 'Dark Emerald Gaming Studio',
     filter: 'filter-app',
+    description: '3D platformer developed for PC and Xbox at Dark Emerald Gaming Studio.',
+    role: 'One of the core programmers — gameplay systems, technical architecture, optimization and development tooling.',
+    highlights: [
+      'Global finalist for Best Studio Game, GDWC 2024 Winter Season',
+      'Showcased at Tokyo Game Show 2024',
+      'Built the final event builds for Middle East Comicon and Tokyo Game Show',
+    ],
     coverImage: '/Projects/Encis Solution/img/pic 1.jpg',
     images: [
       '/Projects/Encis Solution/img/pic 1.jpg',
@@ -16,7 +31,7 @@ export const projects = [
       '/Projects/Encis Solution/img/anim 4.gif',
       '/Projects/Encis Solution/img/pic 2.jpg',
     ],
-    link: { label: 'Steam Link', url: 'https://store.steampowered.com/app/2602500/Encis_Solution' },
+    link: { label: 'View Steam page', icon: 'bi-steam', url: 'https://store.steampowered.com/app/2602500/Encis_Solution/' },
   },
   {
     slug: 'pair-picker',
@@ -33,7 +48,7 @@ export const projects = [
       '/Projects/PairPicker/img/pic 3.jpg',
       '/Projects/PairPicker/img/pic 4.jpg',
     ],
-    link: { label: 'Play Link', url: 'https://pairpicker.netlify.app' },
+    link: { label: 'Play now', url: 'https://pairpicker.netlify.app' },
     github: 'https://github.com/adarshnp/PairPicker',
   },
   {
@@ -48,7 +63,7 @@ export const projects = [
     images: [
       '/Projects/ConnectFlow/img/pic 1.jpg',
     ],
-    link: { label: 'Play Link', url: 'https://connectflow.netlify.app' },
+    link: { label: 'Play now', url: 'https://connectflow.netlify.app' },
   },
   {
     slug: 'matzle',
@@ -65,6 +80,6 @@ export const projects = [
     ],
     description:
       "A Wordle-style puzzle for your math brain. Instead of guessing a five-letter word, you guess a hidden arithmetic equation (like 7+2=9) character by character. Solve it within your attempts to advance.",
-    link: { label: 'Link', url: 'https://matzle.vercel.app' },
+    link: { label: 'Play now', url: 'https://matzle.vercel.app' },
   },
 ]

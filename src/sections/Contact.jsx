@@ -1,39 +1,54 @@
-import SectionTitle from '../components/SectionTitle'
+import { useState } from 'react'
+
+const EMAIL = 'adarshnp49@gmail.com'
+const RESUME_PDF = '/assets/docs/Adarsh_N_P_Senior_Game_Programmer_Resume.pdf'
 
 export default function Contact() {
-  return (
-    <section id="contact" className="contact section">
-      <SectionTitle title="Contact">
-        Interested in working together? Reach out and I&apos;ll get back to you.
-      </SectionTitle>
+  const [copied, setCopied] = useState(false)
 
-      <div className="container" data-aos="fade-up" data-aos-delay="100">
-        <div className="row justify-content-center">
-          <div className="col-lg-6 text-center">
-            <div className="info-item d-flex flex-column align-items-center mb-4">
-              <i className="bi bi-envelope" style={{ fontSize: '2rem', color: 'var(--accent-color)', marginBottom: '12px' }} />
-              <a href="mailto:adarshnp49@gmail.com" style={{ fontSize: '1.1rem' }}>
-                adarshnp49@gmail.com
-              </a>
-            </div>
-            <div className="d-flex justify-content-center gap-3 mt-2">
-              <a
-                href="https://www.linkedin.com/in/adarsh-np"
-                target="_blank"
-                rel="noreferrer"
-                className="btn btn-outline-primary"
-              >
-                <i className="bi bi-linkedin me-2" />LinkedIn
-              </a>
-              <a
-                href="https://github.com/adarshnp"
-                target="_blank"
-                rel="noreferrer"
-                className="btn btn-outline-secondary"
-              >
-                <i className="bi bi-github me-2" />GitHub
-              </a>
-            </div>
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(EMAIL)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    } catch {
+      window.location.href = `mailto:${EMAIL}`
+    }
+  }
+
+  return (
+    <section id="contact" className="section contact">
+      <div className="container">
+        <div className="continue" data-reveal>
+          <div className="section-kicker continue-kicker">
+            <span className="section-index">05</span>
+            <span className="section-kicker-line" />
+            <span>Contact</span>
+          </div>
+
+          <h2 className="continue-title">Let&apos;s work together</h2>
+          <p className="continue-lead">
+            Hiring for a gameplay role, or need someone to strengthen your game&apos;s systems, tools or
+            performance? I&apos;d love to hear from you.
+          </p>
+
+          <div className="continue-email">
+            <a href={`mailto:${EMAIL}`} className="continue-email-link">{EMAIL}</a>
+            <button type="button" className="btn btn-ghost btn-sm" onClick={copy}>
+              <i className={`bi ${copied ? 'bi-check2' : 'bi-copy'}`} /> {copied ? 'Copied!' : 'Copy'}
+            </button>
+          </div>
+
+          <div className="continue-actions">
+            <a href={RESUME_PDF} target="_blank" rel="noreferrer" className="btn btn-primary">
+              <i className="bi bi-file-earmark-arrow-down" /> Download resume
+            </a>
+            <a href="https://www.linkedin.com/in/adarsh-np" target="_blank" rel="noreferrer" className="btn btn-ghost">
+              <i className="bi bi-linkedin" /> LinkedIn
+            </a>
+            <a href="https://github.com/adarshnp" target="_blank" rel="noreferrer" className="btn btn-ghost">
+              <i className="bi bi-github" /> GitHub
+            </a>
           </div>
         </div>
       </div>

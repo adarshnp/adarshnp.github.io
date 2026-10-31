@@ -5,13 +5,35 @@
     <link rel="icon" type="image/png" href="/assets/img/favicon.png" />
     <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#07080d" />
     <title>Adarsh N P | Senior Game Programmer</title>
-    <meta name="description" content="Senior Game Programmer with 5+ years of experience in Unity, C#, Cocos Creator, and WebGL. Based in Dubai, UAE." />
-    <meta name="keywords" content="game programmer, unity developer, C#, Unreal, WebGL, ThreeJS, Cocos Creator, game development, Dubai" />
+    <meta name="description" content="Senior Game Programmer with 6 years of experience developing and shipping PC and cross-platform titles with Unity and C#. Based in Dubai, UAE." />
+    <meta name="keywords" content="senior game programmer, gameplay programmer, unity developer, C#, Cocos Creator, WebGL, game development, Dubai" />
     <meta property="og:title" content="Adarsh N P | Senior Game Programmer" />
-    <meta property="og:description" content="Senior Game Programmer with 5+ years of experience in Unity, C#, Cocos Creator, and WebGL. Based in Dubai, UAE." />
+    <meta property="og:description" content="Senior Game Programmer with 6 years of experience developing and shipping PC and cross-platform titles with Unity and C#. Based in Dubai, UAE." />
     <meta property="og:image" content="/assets/img/adarsh_pic.jpg" />
     <meta property="og:type" content="website" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&family=Fraunces:ital,opsz,wght@0,9..144,600;1,9..144,600&family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&family=Pixelify+Sans:wght@500;700&family=Space+Grotesk:wght@400;500;600&family=Space+Mono:wght@400;700&family=Outfit:wght@500;600;700&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500&display=swap"
+    />
+    <script>
+      // Apply the saved theme before first paint to avoid a flash.
+      (function () {
+        var t = 'dusk'
+        try { t = localStorage.getItem('anp-theme') || t } catch (e) {}
+        var fx = 'flow'
+        try { fx = localStorage.getItem('anp-fx') || fx } catch (e) {}
+        if (fx === 'terrain') fx = 'flow'
+        var params = new URLSearchParams(location.search)
+        if (params.get('theme')) t = params.get('theme')
+        if (params.get('fx')) fx = params.get('fx')
+        document.documentElement.dataset.theme = t
+        document.documentElement.dataset.fx = fx
+      })()
+    </script>
   </head>
   <body>
     <div id="root"></div>

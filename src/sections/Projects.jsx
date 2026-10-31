@@ -1,90 +1,61 @@
-import { useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import Isotope from 'isotope-layout'
-import imagesLoaded from 'imagesloaded'
 import SectionTitle from '../components/SectionTitle'
-import { projects } from '../data/projects'
-
-const FILTERS = [
-  { value: '*', label: 'All' },
-  { value: 'filter-app', label: 'Unity' },
-  { value: 'filter-react', label: 'React' },
-]
+import { projects, FILTERS } from '../data/projects'
 
 export default function Projects() {
-  const containerRef = useRef(null)
-  const isoRef = useRef(null)
   const [activeFilter, setActiveFilter] = useState('*')
-
-  useEffect(() => {
-    const container = containerRef.current
-    if (!container) return
-
-    imagesLoaded(container, () => {
-      isoRef.current = new Isotope(container, {
-        itemSelector: '.isotope-item',
-        layoutMode: 'fitRows',
-        filter: '*',
-        sortBy: 'original-order',
-      })
-    })
-
-    return () => {
-      isoRef.current?.destroy()
-      isoRef.current = null
-    }
-  }, [])
-
-  const handleFilterClick = (filter) => {
-    setActiveFilter(filter)
-    isoRef.current?.arrange({ filter: filter === '*' ? '*' : `.${filter}` })
-  }
+  const shown = projects.filter((p) => activeFilter === '*' || p.filter === activeFilter)
 
   return (
-    <section id="projects" className="portfolio section">
-      <SectionTitle title="Projects" />
-
+    <section id="projects" className="section section-alt">
       <div className="container">
-        <div className="isotope-layout">
-          <ul
-            className="portfolio-filters isotope-filters"
-            data-aos="fade-up"
-            data-aos-delay="100"
-          >
-            {FILTERS.map((f) => (
-              <li
-                key={f.value}
-                className={activeFilter === f.value ? 'filter-active' : ''}
-                onClick={() => handleFilterClick(f.value)}
-              >
-                {f.label}
-              </li>
-            ))}
-          </ul>
+        <SectionTitle index="04" kicker="Selected work" title="Projects">
+          A 3D platformer showcased at Tokyo Game Show 2024, plus personal puzzle games and web builds.
+        </SectionTitle>
 
-          <div
-            className="row gy-4 isotope-container"
-            ref={containerRef}
-            data-aos="fade-up"
-            data-aos-delay="200"
-          >
-            {projects.map((project) => (
-              <div
+        <div className="level-filters" role="tablist" aria-label="Filter projects" data-reveal>
+          {FILTERS.map((f) => (
+            <button
+              type="button"
+              role="tab"
+              key={f.value}
+              aria-selected={activeFilter === f.value}
+              className={activeFilter === f.value ? 'active' : ''}
+              onClick={() => setActiveFilter(f.value)}
+            >
+              {f.label}
+              <span>{projects.filter((p) => f.value === '*' || p.filter === f.value).length}</span>
+            </button>
+          ))}
+        </div>
+
+        <div className="levels" data-reveal>
+          {shown.map((project) => {
+            return (
+              <Link
+                to={`/projects/${project.slug}`}
                 key={project.slug}
-                className={`col-lg-4 col-md-6 portfolio-item isotope-item ${project.filter}`}
+                className={`level${project.featured && activeFilter === '*' ? ' level-featured' : ''}`}
               >
-                <div className="portfolio-content h-100">
-                  <Link to={`/projects/${project.slug}`} className="details-link" title="More Details">
-                    <img src={project.coverImage} className="img-fluid" alt={project.title} />
-                    <div className="portfolio-info">
-                      <h4>{FILTERS.find((f) => f.value === project.filter)?.label}</h4>
-                      <p>{project.title}</p>
-                    </div>
-                  </Link>
+                <div className="level-media">
+                  <img src={project.coverImage} alt="" loading="lazy" />
+                  {project.flag && <span className="level-flag"><i className="bi bi-award" /> {project.flag}</span>}
+                  <span className="corner tl" /><span className="corner tr" />
+                  <span className="corner bl" /><span className="corner br" />
                 </div>
-              </div>
-            ))}
-          </div>
+                <div className="level-body">
+                  <div className="level-meta">
+                    <span>{project.category}</span>
+                    <span>{project.engine || FILTERS.find((f) => f.value === project.filter)?.label}</span>
+                  </div>
+                  <h3>{project.title}</h3>
+                  <p className="level-platform">{project.platform}</p>
+                  <span className="level-cta">View project <i className="bi bi-arrow-right" /></span>
+                </div>
+              </Link>
+            )
+          })}
         </div>
       </div>
     </section>

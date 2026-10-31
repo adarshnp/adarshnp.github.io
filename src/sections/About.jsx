@@ -9,53 +9,76 @@ function calculateAge(dob) {
   return age
 }
 
+const ABILITIES = [
+  { icon: 'bi-joystick',     title: 'Gameplay systems',     text: 'Save systems, additive scene streaming, UI systems.' },
+  { icon: 'bi-tools',        title: 'Tooling & pipelines',  text: 'Unity editor tools and custom build pipelines.' },
+  { icon: 'bi-speedometer2', title: 'Performance',          text: 'Profiling, time-slicing, batching, occlusion culling.' },
+  { icon: 'bi-bezier2',      title: 'Graphics & animation', text: 'URP post-processing, Shader Graph, Verlet animation.' },
+]
+
 export default function About() {
   const age = calculateAge('1997-09-01')
 
-  return (
-    <section id="about" className="about section">
-      <SectionTitle title="About">
-        I&apos;m Adarsh, a dedicated game programmer with over five years of experience creating interactive and
-        engaging projects. My work spans game development and WebGL applications, where I&apos;ve honed skills in
-        programming, performance optimization, and creating tools to streamline workflows. I&apos;m passionate about
-        crafting memorable experiences, solving technical challenges, and pushing the boundaries of what games can
-        achieve. Whether it&apos;s collaborating with a team or leading a project, I love the process of bringing
-        creative ideas to life.
-      </SectionTitle>
+  const stats = [
+    { k: 'Role',        v: 'Senior Game Programmer' },
+    { k: 'Company',     v: 'Xflame Tech Design' },
+    { k: 'Location',    v: 'Dubai, UAE' },
+    { k: 'Nationality', v: 'India' },
+    { k: 'Age',         v: `${age}` },
+  ]
 
+  return (
+    <section id="about" className="section">
       <div className="container">
-        <div className="row">
-          <div className="col-lg-6">
-            <ul>
-              <li>
-                <i className="bi bi-chevron-right" /> <strong>Age:</strong>{' '}
-                <span>{age} years</span>
-              </li>
-              <li>
-                <i className="bi bi-chevron-right" /> <strong>Nationality:</strong>{' '}
-                <span>India</span>
-              </li>
-              <li>
-                <i className="bi bi-chevron-right" /> <strong>Residence:</strong>{' '}
-                <span>Dubai, UAE</span>
-              </li>
-            </ul>
+        <SectionTitle index="01" kicker="Who I am" title="About" />
+
+        <div className="about-grid">
+          <div className="profile-card" data-reveal>
+            <div className="profile-frame">
+              <img src="/assets/img/adarsh_pic.jpg" alt="Portrait of Adarsh N P" />
+              <span className="corner tl" /><span className="corner tr" />
+              <span className="corner bl" /><span className="corner br" />
+            </div>
+            <dl className="profile-stats">
+              {stats.map((s) => (
+                <div key={s.k}>
+                  <dt>{s.k}</dt>
+                  <dd>{s.v}</dd>
+                </div>
+              ))}
+            </dl>
           </div>
-          <div className="col-lg-6">
-            <ul>
-              <li>
-                <i className="bi bi-chevron-right" /> <strong>Email:</strong>{' '}
-                <span>adarshnp49@gmail.com</span>
-              </li>
-              <li>
-                <i className="bi bi-chevron-right" /> <strong>Gaming YouTube Channel:</strong>{' '}
-                <span>
-                  <a href="https://www.youtube.com/@citybreathsgaming" target="_blank" rel="noreferrer">
-                    City Breaths
-                  </a>
-                </span>
-              </li>
+
+          <div className="about-body" data-reveal>
+            <p className="about-lead">
+              I&apos;m Adarsh, a Senior Game Programmer with 6 years of experience developing and shipping PC
+              and cross-platform titles.
+            </p>
+            <p>
+              I focus on gameplay systems, clean architecture and performance optimization in C#. I take
+              ownership of features from concept through polish, work closely with design, and contribute to
+              technical direction while building systems that stay stable and scalable as a project evolves.
+            </p>
+
+            <h3 className="sub-heading">Core strengths</h3>
+            <ul className="abilities">
+              {ABILITIES.map((a) => (
+                <li key={a.title}>
+                  <i className={`bi ${a.icon}`} />
+                  <div>
+                    <strong>{a.title}</strong>
+                    <span>{a.text}</span>
+                  </div>
+                </li>
+              ))}
             </ul>
+
+            <div className="about-links">
+              <a href="mailto:adarshnp49@gmail.com"><i className="bi bi-envelope" /> adarshnp49@gmail.com</a>
+              <a href="https://www.youtube.com/@citybreathsgaming" target="_blank" rel="noreferrer">
+                <i className="bi bi-youtube" /> City Breaths — my gaming channel
+              </a>
+            </div>
           </div>
         </div>
       </div>

@@ -1,78 +1,106 @@
+import { useState } from 'react'
 import SectionTitle from '../components/SectionTitle'
+import { experience, education } from '../data/experience'
+
+const PREVIEW_COUNT = 3
+
+function Quest({ job, index }) {
+  const [expanded, setExpanded] = useState(false)
+  const visible = expanded ? job.points : job.points.slice(0, PREVIEW_COUNT)
+  const hidden = Math.max(0, job.points.length - PREVIEW_COUNT) + (job.leadership?.length ?? 0)
+
+  return (
+    <article className={`quest${job.current ? ' quest-active' : ''}`} data-reveal>
+      <div className="quest-marker" aria-hidden="true">
+        <span>{String(experience.length - index).padStart(2, '0')}</span>
+      </div>
+
+      <div className="quest-card">
+        <div className="quest-top">
+          <span className={`quest-status${job.current ? ' is-active' : ''}`}>
+            {job.current ? <><span className="live-dot" /> Current role</> : 'Previous role'}
+          </span>
+          <span className="quest-period">{job.period}</span>
+        </div>
+
+        <h3 className="quest-role">{job.role}</h3>
+        <p className="quest-company">
+          {job.website ? (
+            <a href={job.website} target="_blank" rel="noreferrer">{job.company} <i className="bi bi-arrow-up-right" /></a>
+          ) : job.company}
+          <span> · {job.location}</span>
+        </p>
+
+        {job.product && (
+          <p className="quest-product">
+            <strong>Product: {job.product.name}</strong> — {job.product.summary}
+          </p>
+        )}
+
+        <ul className="achievements" aria-label="Highlights">
+          {job.achievements.map((a) => (
+            <li key={a}><i className="bi bi-check2-circle" /> {a}</li>
+          ))}
+        </ul>
+
+        <ul className="quest-points">
+          {visible.map((p) => <li key={p}>{p}</li>)}
+        </ul>
+
+        {expanded && job.leadership && (
+          <>
+            <h4 className="quest-subhead">Leadership</h4>
+            <ul className="quest-points">
+              {job.leadership.map((p) => <li key={p}>{p}</li>)}
+            </ul>
+          </>
+        )}
+
+        {hidden > 0 && (
+          <button type="button" className="quest-toggle" onClick={() => setExpanded((e) => !e)} aria-expanded={expanded}>
+            {expanded ? 'Show less' : `Show ${hidden} more`}
+            <i className={`bi ${expanded ? 'bi-chevron-up' : 'bi-chevron-down'}`} />
+          </button>
+        )}
+      </div>
+    </article>
+  )
+}
 
 export default function Resume() {
   return (
-    <section id="resume" className="resume section">
-      <SectionTitle title="Resume">
-        <div className="button" style={{ marginTop: '10px' }}>
+    <section id="resume" className="section">
+      <div className="container">
+        <SectionTitle index="03" kicker="Career" title="Experience">
           <a
             href="/assets/docs/Adarsh_N_P_Senior_Game_Programmer_Resume.pdf"
-            className="resume-button"
+            className="btn btn-ghost btn-sm"
             target="_blank"
             rel="noreferrer"
           >
-            <p>Download Resume</p>
+            <i className="bi bi-file-earmark-arrow-down" /> Download full resume
           </a>
-        </div>
-      </SectionTitle>
+        </SectionTitle>
 
-      <div className="container">
-        <h3 className="resume-title">Professional Experience</h3>
+        <div className="quest-log">
+          {experience.map((job, i) => <Quest job={job} index={i} key={job.company} />)}
 
-        <div className="resume-item">
-          <h4>Game Programmer</h4>
-          <h5>Feb 2025 - Present</h5>
-          <p><em>Xflame Tech Design, Dubai, UAE</em></p>
-          <ul>
-            <li>Stepped into multiple teams as needed, offering direction, clarity, and technical support while maintaining consistent delivery in a fast-paced environment.</li>
-            <li>Demonstrated strong adaptability by moving from Unity/C# to Cocos Creator/TypeScript within days, ensuring continuous delivery across diverse engine pipelines.</li>
-            <li>Developed a hybrid AOT/JIT Unity Hot-Update prototype that loads hotfix assemblies at runtime, removing the need for full rebuilds.</li>
-            <li>Developed a reusable chat system that can be plugged into different games with minimal effort, reducing implementation time across projects.</li>
-            <li>Maintained a high bug-fix approval rate, consistently closing issues quickly while proposing reusable, permanent solutions instead of temporary patches.</li>
-            <li>Resolved blocking technical issues in the development pipeline and smoothened the development speed of the team.</li>
-          </ul>
-        </div>
-
-        <div className="resume-item">
-          <h4>Game Programmer</h4>
-          <h5>Jul 2023 - Feb 2025</h5>
-          <p><em>Dark Emerald Gaming Studio, Dubai, UAE</em></p>
-          <p>Website: <a href="https://www.darkemerald.ae" target="_blank" rel="noreferrer">https://www.darkemerald.ae</a></p>
-          <ul>
-            <li>Designed and implemented a system for streaming multiple scenes, which improved performance and reduced frame rate drops by 30% during scene transitions.</li>
-            <li>Architected and implemented a complete save system, enabling players to save and load progress seamlessly across various gameplay states, enhancing the overall user experience.</li>
-            <li>Developed a new volume component for post-processing called Iris Blur, adding a unique blur effect that simulates a focus transition, enhancing depth of field and visual immersion in the game.</li>
-            <li>Developed many custom Unity editor tools (FPS counter, mesh correction tool, room selection tool, checkpoint teleportation tool, file search tool), increasing team productivity by 50%.</li>
-            <li>Created and implemented procedural animation for the player character&apos;s scarf using Verlet Integration, improving movement fluidity and realism.</li>
-            <li>Developed visual effects for the player character, including a Blob Shadow using quads and trigonometry for realistic ground interaction and Afterimage Effects to create motion blur illusions during rapid movement, enhancing visual appeal and gameplay feedback.</li>
-            <li>Designed and implemented UI System for in-game tools, including the main menu and pause menu, improving the player experience and accessibility by offering intuitive control and options during gameplay.</li>
-            <li>Utilized Unity&apos;s Profiler to find and fix performance issues, improving frame rates from 40-45 FPS to a steady 60 FPS through time-slicing, dynamic batching, and occlusion culling.</li>
-          </ul>
-        </div>
-
-        <div className="resume-item">
-          <h4>Senior Software Engineer, Team Lead</h4>
-          <h5>2020 - 2023</h5>
-          <p><em>Inapp Information Technologies, Thiruvananthapuram, India</em></p>
-          <p>Website: <a href="https://www.inapp.com" target="_blank" rel="noreferrer">https://www.inapp.com</a></p>
-          <ul>
-            <li>Led a cross-functional team of developers, ensuring smooth collaboration and efficient project execution.</li>
-            <li>Spearheaded the development of the tool from scratch to finish in two years, meeting tight deadlines and receiving excellent client feedback.</li>
-            <li>Integrated splines to model realistic landscaping features such as walls, pavers, and other custom geometries.</li>
-            <li>Streamlined the Unity-Web interaction, handling API calls, JSON parsing, and seamless data exchange between the frontend and backend.</li>
-            <li>Developed and optimized custom shaders using Shader Graph, enhancing the visual effects of 3D objects and improving overall performance.</li>
-            <li>Implemented best practices in performance optimization, reducing load times and ensuring smooth interactions for users with different hardware configurations.</li>
-            <li>Ensured that the tool functioned seamlessly across different web browsers and devices, optimizing performance for mobile and desktop platforms.</li>
-          </ul>
-        </div>
-
-        <h3 className="resume-title">Education</h3>
-
-        <div className="resume-item">
-          <h4>Bachelor of Technology: Computer Science</h4>
-          <h5>2016 - 2020</h5>
-          <p><em>College Of Engineering Trivandrum, Thiruvanathapuram</em></p>
-          <p>Website: <a href="https://www.cet.ac.in/" target="_blank" rel="noreferrer">https://www.cet.ac.in/</a></p>
+          <article className="quest quest-tutorial" data-reveal>
+            <div className="quest-marker" aria-hidden="true"><i className="bi bi-mortarboard" /></div>
+            <div className="quest-card">
+              <div className="quest-top">
+                <span className="quest-status">Education</span>
+                <span className="quest-period">{education.period}</span>
+              </div>
+              <h3 className="quest-role">{education.degree}</h3>
+              <p className="quest-company">
+                <a href={education.website} target="_blank" rel="noreferrer">
+                  {education.school} <i className="bi bi-arrow-up-right" />
+                </a>
+                <span> · {education.location}</span>
+              </p>
+            </div>
+          </article>
         </div>
       </div>
     </section>
