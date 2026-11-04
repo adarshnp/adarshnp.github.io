@@ -3,8 +3,7 @@ import { useParams, Link } from 'react-router-dom'
 import { useReveal } from '../hooks/useReveal'
 import { projects, FILTERS } from '../data/projects'
 
-const isGif = (src) => src.toLowerCase().endsWith('.gif')
-// Gallery items are image paths, or { type: 'video', src, poster }.
+// Gallery items are image paths, or { type: 'video', src, poster, loop? }.
 const isVideo = (item) => typeof item === 'object' && item.type === 'video'
 const srcOf = (item) => (isVideo(item) ? item.src : item)
 
@@ -75,19 +74,18 @@ export default function ProjectDetailPage() {
         <div className="container detail-grid">
           <div className="viewer" data-reveal>
             <div className={`viewer-stage${portrait ? ' portrait' : ''}`}>
-              {/* Blurred fill behind letterboxed media (skipped for the heavy GIFs). */}
-              {!isGif(currentSrc) && (
-                <img className="viewer-backdrop" src={isVideo(current) ? current.poster : current} alt="" aria-hidden="true" />
-              )}
+              {/* Blurred fill behind letterboxed media. */}
+              <img className="viewer-backdrop" src={isVideo(current) ? current.poster : current} alt="" aria-hidden="true" />
               {isVideo(current) ? (
                 <video
                   key={currentSrc}
                   src={currentSrc}
                   poster={current.poster}
-                  controls
                   playsInline
-                  preload="metadata"
-                  aria-label={`${project.title} — gameplay video`}
+                  aria-label={`${project.title} — gameplay ${current.loop ? 'clip' : 'video'}`}
+                  {...(current.loop
+                    ? { autoPlay: true, muted: true, loop: true }
+                    : { controls: true, preload: 'metadata' })}
                 />
               ) : (
                 <img
@@ -101,7 +99,7 @@ export default function ProjectDetailPage() {
               {!isVideo(current) && loadedSrc !== currentSrc && (
                 <span className="viewer-loading" role="status">
                   <span className="spinner" />
-                  {isGif(currentSrc) ? 'Loading clip…' : 'Loading…'}
+                  Loading…
                 </span>
               )}
               {count > 1 && (
@@ -127,15 +125,13 @@ export default function ProjectDetailPage() {
                     key={srcOf(item)}
                     className={`thumb${i === active ? ' active' : ''}`}
                     onClick={() => setActive(i)}
-                    aria-label={isVideo(item) ? 'Show gameplay video' : `Show media ${i + 1}`}
+                    aria-label={isVideo(item) ? `Show gameplay ${item.loop ? 'clip' : 'video'}` : `Show media ${i + 1}`}
                   >
                     {isVideo(item) ? (
                       <>
                         <img src={item.poster} alt="" loading="lazy" />
-                        <span className="thumb-video"><i className="bi bi-play-fill" /> Video</span>
+                        <span className="thumb-video"><i className="bi bi-play-fill" /> {item.loop ? 'Clip' : 'Video'}</span>
                       </>
-                    ) : isGif(item) ? (
-                      <span className="thumb-clip"><i className="bi bi-play-fill" /> Clip</span>
                     ) : (
                       <img src={item} alt="" loading="lazy" />
                     )}

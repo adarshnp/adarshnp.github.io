@@ -6,7 +6,14 @@ export const FILTERS = [
 ]
 
 // Gallery items are image paths, or { type: 'video', src, poster } for videos.
+// `loop` videos play silently on repeat like a GIF, without controls.
 const video = (folder) => ({ type: 'video', src: `/Projects/${folder}/demo.mp4`, poster: `/Projects/${folder}/poster.webp` })
+const clip = (n) => ({
+  type: 'video',
+  loop: true,
+  src: `/Projects/Encis Solution/img/clip-${n}.mp4`,
+  poster: `/Projects/Encis Solution/img/clip-${n}.webp`,
+})
 
 export const projects = [
   {
@@ -29,10 +36,10 @@ export const projects = [
     coverImage: '/Projects/Encis Solution/img/pic 1.jpg',
     images: [
       '/Projects/Encis Solution/img/pic 1.jpg',
-      '/Projects/Encis Solution/img/anim 1.gif',
-      '/Projects/Encis Solution/img/anim 2.gif',
-      '/Projects/Encis Solution/img/anim 3.gif',
-      '/Projects/Encis Solution/img/anim 4.gif',
+      clip(1),
+      clip(2),
+      clip(3),
+      clip(4),
       '/Projects/Encis Solution/img/pic 2.jpg',
     ],
     link: { label: 'View Steam page', icon: 'bi-steam', url: 'https://store.steampowered.com/app/2602500/Encis_Solution/' },
