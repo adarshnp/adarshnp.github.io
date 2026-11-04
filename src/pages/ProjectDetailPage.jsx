@@ -4,6 +4,9 @@ import { useReveal } from '../hooks/useReveal'
 import { projects, FILTERS } from '../data/projects'
 
 const isGif = (src) => src.toLowerCase().endsWith('.gif')
+// Gallery items are image paths, or { type: 'video', src, poster }.
+const isVideo = (item) => typeof item === 'object' && item.type === 'video'
+const srcOf = (item) => (isVideo(item) ? item.src : item)
 
 export default function ProjectDetailPage() {
   const { slug } = useParams()
@@ -46,6 +49,8 @@ export default function ProjectDetailPage() {
   const next = projects[(index + 1) % projects.length]
   const count = project.images.length
   const current = project.images[active]
+  const currentSrc = srcOf(current)
+  const portrait = project.orientation === 'portrait'
   const info = [
     ['Category', project.category],
     ['Engine', project.engine || FILTERS.find((f) => f.value === project.filter)?.label],
@@ -69,18 +74,34 @@ export default function ProjectDetailPage() {
       <section className="section detail">
         <div className="container detail-grid">
           <div className="viewer" data-reveal>
-            <div className="viewer-stage">
-              <img
-                key={current}
-                src={current}
-                alt={`${project.title} — media ${active + 1}`}
-                onLoad={() => setLoadedSrc(current)}
-                onError={() => setLoadedSrc(current)}
-              />
-              {loadedSrc !== current && (
+            <div className={`viewer-stage${portrait ? ' portrait' : ''}`}>
+              {/* Blurred fill behind letterboxed media (skipped for the heavy GIFs). */}
+              {!isGif(currentSrc) && (
+                <img className="viewer-backdrop" src={isVideo(current) ? current.poster : current} alt="" aria-hidden="true" />
+              )}
+              {isVideo(current) ? (
+                <video
+                  key={currentSrc}
+                  src={currentSrc}
+                  poster={current.poster}
+                  controls
+                  playsInline
+                  preload="metadata"
+                  aria-label={`${project.title} — gameplay video`}
+                />
+              ) : (
+                <img
+                  key={currentSrc}
+                  src={currentSrc}
+                  alt={`${project.title} — media ${active + 1}`}
+                  onLoad={() => setLoadedSrc(currentSrc)}
+                  onError={() => setLoadedSrc(currentSrc)}
+                />
+              )}
+              {!isVideo(current) && loadedSrc !== currentSrc && (
                 <span className="viewer-loading" role="status">
                   <span className="spinner" />
-                  {isGif(current) ? 'Loading clip…' : 'Loading…'}
+                  {isGif(currentSrc) ? 'Loading clip…' : 'Loading…'}
                 </span>
               )}
               {count > 1 && (
@@ -99,19 +120,24 @@ export default function ProjectDetailPage() {
             </div>
 
             {count > 1 && (
-              <div className="viewer-thumbs">
-                {project.images.map((src, i) => (
+              <div className={`viewer-thumbs${portrait ? ' portrait' : ''}`}>
+                {project.images.map((item, i) => (
                   <button
                     type="button"
-                    key={src}
+                    key={srcOf(item)}
                     className={`thumb${i === active ? ' active' : ''}`}
                     onClick={() => setActive(i)}
-                    aria-label={`Show media ${i + 1}`}
+                    aria-label={isVideo(item) ? 'Show gameplay video' : `Show media ${i + 1}`}
                   >
-                    {isGif(src) ? (
+                    {isVideo(item) ? (
+                      <>
+                        <img src={item.poster} alt="" loading="lazy" />
+                        <span className="thumb-video"><i className="bi bi-play-fill" /> Video</span>
+                      </>
+                    ) : isGif(item) ? (
                       <span className="thumb-clip"><i className="bi bi-play-fill" /> Clip</span>
                     ) : (
-                      <img src={src} alt="" loading="lazy" />
+                      <img src={item} alt="" loading="lazy" />
                     )}
                   </button>
                 ))}
@@ -129,6 +155,16 @@ export default function ProjectDetailPage() {
                   <li key={h}><i className="bi bi-award" /> {h}</li>
                 ))}
               </ul>
+            )}
+            {project.features && (
+              <>
+                <h3 className="detail-subhead">Features</h3>
+                <ul className="detail-highlights">
+                  {project.features.map((f) => (
+                    <li key={f}><i className="bi bi-check2-circle" /> {f}</li>
+                  ))}
+                </ul>
+              </>
             )}
             <dl className="spec">
               {info.map(([k, v]) => (

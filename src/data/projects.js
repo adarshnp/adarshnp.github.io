@@ -1,8 +1,12 @@
 export const FILTERS = [
   { value: '*', label: 'All' },
   { value: 'filter-app', label: 'Unity' },
+  { value: 'filter-cocos', label: 'Cocos Creator' },
   { value: 'filter-react', label: 'React' },
 ]
+
+// Gallery items are image paths, or { type: 'video', src, poster } for videos.
+const video = (folder) => ({ type: 'video', src: `/Projects/${folder}/demo.mp4`, poster: `/Projects/${folder}/poster.webp` })
 
 export const projects = [
   {
@@ -34,38 +38,6 @@ export const projects = [
     link: { label: 'View Steam page', icon: 'bi-steam', url: 'https://store.steampowered.com/app/2602500/Encis_Solution/' },
   },
   {
-    slug: 'pair-picker',
-    title: 'Pair Picker',
-    category: '2D Puzzle Game',
-    platform: 'WebGL, Android',
-    engine: 'Unity',
-    developer: 'Adarsh N P',
-    filter: 'filter-app',
-    coverImage: '/Projects/PairPicker/img/coverpic.jpg',
-    images: [
-      '/Projects/PairPicker/img/pic 1.jpg',
-      '/Projects/PairPicker/img/pic 2.jpg',
-      '/Projects/PairPicker/img/pic 3.jpg',
-      '/Projects/PairPicker/img/pic 4.jpg',
-    ],
-    link: { label: 'Play now', url: 'https://pairpicker.netlify.app' },
-    github: 'https://github.com/adarshnp/PairPicker',
-  },
-  {
-    slug: 'connect-flow',
-    title: 'Connect Flow',
-    category: '2D Puzzle',
-    platform: 'WebGL, Android',
-    engine: 'Unity',
-    developer: 'Adarsh N P',
-    filter: 'filter-app',
-    coverImage: '/Projects/ConnectFlow/img/pic 1.jpg',
-    images: [
-      '/Projects/ConnectFlow/img/pic 1.jpg',
-    ],
-    link: { label: 'Play now', url: 'https://connectflow.netlify.app' },
-  },
-  {
     slug: 'matzle',
     title: 'Matzle',
     category: '2D Puzzle',
@@ -81,5 +53,139 @@ export const projects = [
     description:
       "A Wordle-style puzzle for your math brain. Instead of guessing a five-letter word, you guess a hidden arithmetic equation (like 7+2=9) character by character. Solve it within your attempts to advance.",
     link: { label: 'Play now', url: 'https://matzle.vercel.app' },
+  },
+  {
+    slug: 'lumin',
+    title: 'Lumin',
+    category: 'Endless Arcade',
+    platform: 'Mobile (iOS & Android)',
+    engine: 'Cocos Creator 2.1 (TypeScript)',
+    developer: 'Adarsh N P',
+    filter: 'filter-cocos',
+    coverStyle: 'icon',
+    description:
+      'Guide a glowing angler fish through an ocean filling up with plastic waste. One-touch controls: hold to dive, and the longer you hold the deeper you go; let go and you float back up. Touch the surface and it’s over, rest on the seabed to heal, and survive as long as you can as the ocean gets busier every minute.',
+    features: [
+      'Simple one-touch controls: hold to dive deeper, let go to float up',
+      'Gets harder every minute, with more waste coming faster',
+      'Resting on the seabed restores health, so players balance risk and safety',
+      'Calm ocean visuals, a short story and a saved best survival time',
+    ],
+    coverImage: '/Projects/Lumin/icon.webp',
+    images: [
+      video('Lumin'),
+      '/Projects/Lumin/gameplay.webp',
+      '/Projects/Lumin/main-menu.webp',
+      '/Projects/Lumin/story.webp',
+    ],
+  },
+  {
+    slug: 'sankhya',
+    title: 'Sankhya',
+    category: 'Math Puzzle',
+    platform: 'Mobile (iOS & Android)',
+    engine: 'Unity (C#)',
+    developer: 'Adarsh N P',
+    filter: 'filter-app',
+    orientation: 'portrait',
+    coverStyle: 'icon',
+    description:
+      'A Wordle-style puzzle for numbers — Sankhya is Sanskrit for “number”. Find the hidden equation in five tries using the on-screen number pad: tiles turn green for the right symbol in the right place, yellow for a symbol in the wrong place, and grey for one that isn’t there. Dressed in an ornate, Indian-inspired theme.',
+    features: [
+      'Familiar Wordle-style colour hints make it easy to pick up',
+      'A new equation to solve on every level',
+      'Clear feedback: incomplete guesses are flagged, and the answer is revealed after each round',
+      'Built so new puzzles can be added easily, without changing the game’s code',
+    ],
+    coverImage: '/Projects/Sankhya/icon.webp',
+    images: [
+      video('Sankhya'),
+      '/Projects/Sankhya/gameplay.webp',
+    ],
+  },
+  {
+    slug: 'rps-grid-master',
+    title: 'RPS Grid Master',
+    category: 'Casual Puzzle',
+    platform: 'Mobile (iOS & Android)',
+    engine: 'Cocos Creator 3.7 (TypeScript)',
+    developer: 'Adarsh N P',
+    filter: 'filter-cocos',
+    orientation: 'portrait',
+    coverStyle: 'icon',
+    description:
+      'A rock-paper-scissors puzzle on a 5×5 grid. Each level hands you a random weapon and a few seconds on the clock: drag through the tiles to chain enemies, then attack. Tiles your weapon beats score double, tiles that beat it cost points, and only a positive turn clears the level.',
+    features: [
+      'A fresh twist on rock-paper-scissors that anyone can learn in seconds',
+      'Quick, timed rounds that reward planning the best chain',
+      '30 levels to clear, with a high-score table to beat',
+      'Adjustable music and sound, plus a built-in how-to-play guide',
+    ],
+    coverImage: '/Projects/RPSGridMaster/icon.webp',
+    images: [
+      video('RPSGridMaster'),
+      '/Projects/RPSGridMaster/main-menu.webp',
+      '/Projects/RPSGridMaster/gameplay-1.webp',
+      '/Projects/RPSGridMaster/gameplay-2.webp',
+      '/Projects/RPSGridMaster/result.webp',
+      '/Projects/RPSGridMaster/high-scores.webp',
+      '/Projects/RPSGridMaster/how-to-play.webp',
+    ],
+  },
+  {
+    slug: 'grove',
+    title: 'Grove',
+    category: 'Narrative Life Sim',
+    platform: 'Mobile (iOS & Android)',
+    engine: 'Cocos Creator 3.7 (TypeScript)',
+    developer: 'Adarsh N P',
+    filter: 'filter-cocos',
+    orientation: 'portrait',
+    coverStyle: 'icon',
+    description:
+      'Grove: A Quiet Becoming is a calm, choice-driven life sim where you live as a tree. Each year brings a moment — a storm, a nesting bird, a distant fire — and your choice shapes four traits: growth, vitality, wisdom and harmony. Your tree grows through life stages, and at the end of its life your traits decide which of 18 identities it became.',
+    features: [
+      'A relaxing story game with no wrong answers: every choice grows a different tree',
+      '30 life events and 18 possible endings, so each playthrough feels different',
+      'The tree’s artwork changes as it grows from a seed into a forest',
+      'Progress saves automatically, so players can return to their tree later',
+    ],
+    coverImage: '/Projects/Grove/icon.webp',
+    images: [
+      video('Grove'),
+      '/Projects/Grove/main-menu.webp',
+    ],
+  },
+  {
+    slug: 'connect-flow',
+    title: 'Connect Flow',
+    category: '2D Puzzle',
+    platform: 'WebGL',
+    engine: 'Unity',
+    developer: 'Adarsh N P',
+    filter: 'filter-app',
+    coverImage: '/Projects/ConnectFlow/img/pic 1.jpg',
+    images: [
+      '/Projects/ConnectFlow/img/pic 1.jpg',
+    ],
+    link: { label: 'Play now', url: 'https://connectflow.netlify.app' },
+  },
+  {
+    slug: 'pair-picker',
+    title: 'Pair Picker',
+    category: '2D Puzzle Game',
+    platform: 'WebGL',
+    engine: 'Unity',
+    developer: 'Adarsh N P',
+    filter: 'filter-app',
+    coverImage: '/Projects/PairPicker/img/coverpic.jpg',
+    images: [
+      '/Projects/PairPicker/img/pic 1.jpg',
+      '/Projects/PairPicker/img/pic 2.jpg',
+      '/Projects/PairPicker/img/pic 3.jpg',
+      '/Projects/PairPicker/img/pic 4.jpg',
+    ],
+    link: { label: 'Play now', url: 'https://pairpicker.netlify.app' },
+    github: 'https://github.com/adarshnp/PairPicker',
   },
 ]
