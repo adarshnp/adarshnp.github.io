@@ -15,7 +15,7 @@ export default function Projects() {
     <section id="projects" className="section section-alt">
       <div className="container container-narrow">
         <SectionTitle index="04" kicker="Selected work" title="Projects">
-          A 3D platformer showcased at Tokyo Game Show 2024, plus my own mobile and web games.
+          A 3D platformer showcased at Tokyo Game Show 2024, plus my own games and an AI photobooth kiosk.
         </SectionTitle>
 
         <div className="level-filters" role="tablist" aria-label="Filter projects" data-reveal>

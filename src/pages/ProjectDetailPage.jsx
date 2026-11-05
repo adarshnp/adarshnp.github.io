@@ -3,9 +3,12 @@ import { useParams, Link } from 'react-router-dom'
 import { useReveal } from '../hooks/useReveal'
 import { projects, FILTERS } from '../data/projects'
 
-// Gallery items are image paths, or { type: 'video', src, poster, loop? }.
+// Gallery items are image paths, { type: 'video', src, poster, loop? }
+// or { type: 'youtube', id, poster, vertical? }.
 const isVideo = (item) => typeof item === 'object' && item.type === 'video'
-const srcOf = (item) => (isVideo(item) ? item.src : item)
+const isYouTube = (item) => typeof item === 'object' && item.type === 'youtube'
+const srcOf = (item) => (isVideo(item) ? item.src : isYouTube(item) ? `youtube:${item.id}` : item)
+const posterOf = (item) => (typeof item === 'object' ? item.poster : item)
 
 export default function ProjectDetailPage() {
   const { slug } = useParams()
@@ -14,10 +17,13 @@ export default function ProjectDetailPage() {
   const [active, setActive] = useState(0)
   // Tracks which media file has finished loading, to show a loader until then.
   const [loadedSrc, setLoadedSrc] = useState(null)
+  // YouTube video whose player has been loaded (by pressing play).
+  const [ytPlaying, setYtPlaying] = useState(null)
   useReveal([slug])
 
   useEffect(() => {
     setActive(0)
+    setYtPlaying(null)
     window.scrollTo(0, 0)
   }, [slug])
 
@@ -75,8 +81,26 @@ export default function ProjectDetailPage() {
           <div className="viewer" data-reveal>
             <div className={`viewer-stage${portrait ? ' portrait' : ''}`}>
               {/* Blurred fill behind letterboxed media. */}
-              <img className="viewer-backdrop" src={isVideo(current) ? current.poster : current} alt="" aria-hidden="true" />
-              {isVideo(current) ? (
+              <img className="viewer-backdrop" src={posterOf(current)} alt="" aria-hidden="true" />
+              {isYouTube(current) ? (
+                ytPlaying === current.id ? (
+                  <iframe
+                    key={current.id}
+                    className={`viewer-yt${current.vertical ? ' vertical' : ''}`}
+                    src={`https://www.youtube-nocookie.com/embed/${current.id}?autoplay=1&rel=0&playsinline=1`}
+                    title={`${project.title} — video`}
+                    allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+                    allowFullScreen
+                  />
+                ) : (
+                  <>
+                    <img key={currentSrc} src={current.poster} alt={`${project.title} — video preview`} />
+                    <button type="button" className="viewer-play" onClick={() => setYtPlaying(current.id)} aria-label="Play video">
+                      <i className="bi bi-play-fill" />
+                    </button>
+                  </>
+                )
+              ) : isVideo(current) ? (
                 <video
                   key={currentSrc}
                   src={currentSrc}
@@ -96,7 +120,7 @@ export default function ProjectDetailPage() {
                   onError={() => setLoadedSrc(currentSrc)}
                 />
               )}
-              {!isVideo(current) && loadedSrc !== currentSrc && (
+              {typeof current === 'string' && loadedSrc !== currentSrc && (
                 <span className="viewer-loading" role="status">
                   <span className="spinner" />
                   Loading…
@@ -125,9 +149,18 @@ export default function ProjectDetailPage() {
                     key={srcOf(item)}
                     className={`thumb${i === active ? ' active' : ''}`}
                     onClick={() => setActive(i)}
-                    aria-label={isVideo(item) ? `Show gameplay ${item.loop ? 'clip' : 'video'}` : `Show media ${i + 1}`}
+                    aria-label={
+                      isYouTube(item) ? `Show ${item.vertical ? 'short video' : 'video'}`
+                        : isVideo(item) ? `Show gameplay ${item.loop ? 'clip' : 'video'}`
+                          : `Show media ${i + 1}`
+                    }
                   >
-                    {isVideo(item) ? (
+                    {isYouTube(item) ? (
+                      <>
+                        <img src={item.poster} alt="" loading="lazy" />
+                        <span className="thumb-video"><i className="bi bi-youtube" /> {item.vertical ? 'Short' : 'Video'}</span>
+                      </>
+                    ) : isVideo(item) ? (
                       <>
                         <img src={item.poster} alt="" loading="lazy" />
                         <span className="thumb-video"><i className="bi bi-play-fill" /> {item.loop ? 'Clip' : 'Video'}</span>

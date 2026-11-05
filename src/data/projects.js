@@ -8,6 +8,8 @@ export const FILTERS = [
 // Gallery items are image paths, or { type: 'video', src, poster } for videos.
 // `loop` videos play silently on repeat like a GIF, without controls.
 const video = (folder) => ({ type: 'video', src: `/Projects/${folder}/demo.mp4`, poster: `/Projects/${folder}/poster.webp` })
+// YouTube videos show their poster and load the player only when played.
+const youtube = (id, poster, vertical = false) => ({ type: 'youtube', id, poster, vertical })
 const clip = (n) => ({
   type: 'video',
   loop: true,
@@ -60,6 +62,34 @@ export const projects = [
     description:
       "A Wordle-style puzzle for your math brain. Instead of guessing a five-letter word, you guess a hidden arithmetic equation (like 7+2=9) character by character. Solve it within your attempts to advance.",
     link: { label: 'Play now', url: 'https://matzle.vercel.app' },
+  },
+  {
+    slug: 'ai-photobooth',
+    title: 'AI Photobooth Kiosk',
+    category: 'AI Kiosk App',
+    platform: 'Windows touchscreen kiosk',
+    engine: 'Unity 6 (C#) + ComfyUI (Stable Diffusion XL)',
+    status: 'Self-initiated project',
+    developer: 'Adarsh N P',
+    filter: 'filter-app',
+    orientation: 'portrait',
+    description:
+      'An event-ready AI photobooth for brand events. A guest takes a selfie on a touchscreen, picks a style, and gets an AI-made portrait in seconds. Everything runs on the booth’s own computer, so it works without internet, needs no staff, and can be rebranded for each event or client.',
+    role: 'Solo project — concept, user flow, development, AI setup and testing.',
+    features: [
+      'A full session takes under a minute: pose, pick a style, get your portrait',
+      'Four styles to choose from: Astronaut, Future City, Oil Painting and Anime',
+      'Works offline on the booth’s own computer, with no internet needed at the venue',
+      'Rebranded for a new event or client by editing a single settings file',
+      'Runs unattended all day: resets itself if a guest walks away and recovers from errors',
+      'Every portrait is saved so it can be shared with the client after the event',
+    ],
+    coverImage: '/Projects/AIPhotobooth/cover.webp',
+    images: [
+      youtube('CbXlhvD_Og4', '/Projects/AIPhotobooth/walkthrough.webp'),
+      youtube('iEmDfiYcTWk', '/Projects/AIPhotobooth/short.webp', true),
+    ],
+    link: { label: 'Watch on YouTube', icon: 'bi-youtube', url: 'https://youtu.be/CbXlhvD_Og4' },
   },
   {
     slug: 'lumin',
